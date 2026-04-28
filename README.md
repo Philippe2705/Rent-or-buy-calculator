@@ -110,13 +110,14 @@ The year when `Buyer Equity ≥ Renter Portfolio` for the first time.
 
 | Parameter | Default | Rationale |
 |---|---|---|
-| Property price | CHF 1 000 000 | Typical Swiss urban apartment |
-| Down payment | 20% | Swiss minimum |
+| Property price | CHF 1 200 000 | Typical Swiss urban apartment |
+| Down payment | 30% | 20% is Swiss minimum |
 | Notary / transaction costs | 3% | Mid-range across cantons |
 | Property appreciation | 1%/yr | Conservative long-run estimate |
 | Mortgage rate | 1.5% | Current fixed-rate environment |
 | Amortization period | 15 years | Legal maximum for 2nd tranche |
 | Maintenance | 1%/yr | Swiss rule of thumb |
+| Building insurance | 0.05%/yr | Typical building insurance premium |
 | Eigenmietwert | 3.5% | Typical cantonal imputed rate |
 | Marginal tax rate | 25% | Mid-range combined rate |
 | Wealth tax | 3‰ | Mid-range cantonal rate |

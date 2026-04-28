@@ -18,8 +18,8 @@
 
     // ── Default values ──────────────────────────────────────────────────
     const DEFAULTS = {
-        propertyPrice: 1000000,
-        downPaymentPct: 20,
+        propertyPrice: 1200000,
+        downPaymentPct: 30,
         notaryCostsPct: 3,
         propertyAppreciation: 1,
         mortgageRate: 1.5,
