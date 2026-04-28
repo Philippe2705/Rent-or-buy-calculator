@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rent vs. Buy Calculator – Switzerland 🇨🇭</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+</head>
+<body>
+    <header>
+        <div class="container header-content">
+            <span class="flag">🇨🇭</span>
+            <div>
+                <h1>Rent vs. Buy Calculator</h1>
+                <p class="subtitle">Compare the financial outcome of renting vs. buying property in Switzerland</p>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="layout">
+            <!-- Inputs Panel -->
+            <aside class="inputs-panel">
+                <div class="panel-header">
+                    <h2>Parameters</h2>
+                    <button id="resetBtn" class="btn-reset" title="Reset to defaults">↺ Reset</button>
+                </div>
+
+                <details class="input-group" open>
+                    <summary><span class="icon">🏠</span> Property</summary>
+                    <div class="input-group-content">
+                        <div class="field">
+                            <label for="propertyPrice">Purchase Price</label>
+                            <div class="input-with-unit">
+                                <span class="unit">CHF</span>
+                                <input type="number" id="propertyPrice" value="1000000" step="10000" min="0">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label for="downPaymentPct">Down Payment</label>
+                            <div class="input-with-unit">
+                                <input type="number" id="downPaymentPct" value="20" step="1" min="0" max="100">
+                                <span class="unit">%</span>
+                            </div>
+                            <span class="computed" id="downPaymentAmount"></span>
+                        </div>
+                        <div class="field">
+                            <label for="notaryCostsPct">Notary &amp; Transaction Costs</label>
+                            <div class="input-with-unit">
+                                <input type="number" id="notaryCostsPct" value="3" step="0.1" min="0" max="10">
+                                <span class="unit">%</span>
+                            </div>
+                            <span class="computed" id="notaryCostsAmount"></span>
+                        </div>
+                        <div class="field">
+                            <label for="propertyAppreciation">Annual Appreciation</label>
+                            <div class="input-with-unit">
+                                <input type="number" id="propertyAppreciation" value="1" step="0.1" min="-10" max="15">
+                                <span class="unit">%</span>
+                            </div>
+                        </div>
+                    </div>
+                </details>
+
+                <details class="input-group" open>
+                    <summary><span class="icon">🏦</span> Mortgage</summary>
+                    <div class="input-group-content">
+                        <div class="field">
+                            <label for="mortgageRate">Interest Rate</label>
+                            <div class="input-with-unit">
+                                <input type="number" id="mortgageRate" value="1.5" step="0.05" min="0" max="10">
+                                <span class="unit">%</span>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label for="amortizationYears">2nd Mortgage Amortization</label>
+                            <div class="input-with-unit">
+                                <input type="number" id="amortizationYears" value="15" step="1" min="1" max="30">
+                                <span class="unit">yrs</span>
+                            </div>
+                            <span class="hint">Must reduce to 65% LTV within this period</span>
+                        </div>
+                        <div class="computed" id="mortgageInfo"></div>
+                    </div>
+                </details>
+
+                <details class="input-group" open>
+                    <summary><span class="icon">🔧</span> Ownership Costs</summary>
+                    <div class="input-group-content">
+                        <div class="field">
+                            <label for="maintenancePct">Maintenance &amp; Repairs</label>
+                            <div class="input-with-unit">
+                                <input type="number" id="maintenancePct" value="1" step="0.1" min="0" max="5">
+                                <span class="unit">% / yr</span>
+                            </div>
+                            <span class="hint">Typically 1% of property value per year</span>
+                        </div>
+                        <div class="field">
+                            <label for="insurancePct">Building Insurance</label>
+                            <div class="input-with-unit">
+                                <input type="number" id="insurancePct" value="0.05" step="0.01" min="0" max="1">
+                                <span class="unit">% / yr</span>
+                            </div>
+                        </div>
+                    </div>
+                </details>
+
+                <details class="input-group" open>
+                    <summary><span class="icon">📋</span> Taxes (Switzerland)</summary>
+                    <div class="input-group-content">
+                        <div class="field">
+                            <label for="eigenmietwertPct">Eigenmietwert (Imputed Rental Value)</label>
+                            <div class="input-with-unit">
+                                <input type="number" id="eigenmietwertPct" value="3.5" step="0.1" min="0" max="10">
+                                <span class="unit">%</span>
+                            </div>
+                            <span class="hint">~60–70% of market rent, typically 3.5% of property value</span>
+                        </div>
+                        <div class="field">
+                            <label for="marginalTaxRate">Marginal Tax Rate</label>
+                            <div class="input-with-unit">
+                                <input type="number" id="marginalTaxRate" value="25" step="1" min="0" max="50">
+                                <span class="unit">%</span>
+                            </div>
+                            <span class="hint">Combined federal + cantonal + municipal</span>
+                        </div>
+                        <div class="field">
+                            <label for="wealthTaxRate">Wealth Tax Rate</label>
+                            <div class="input-with-unit">
+                                <input type="number" id="wealthTaxRate" value="3" step="0.1" min="0" max="10">
+                                <span class="unit">‰</span>
+                            </div>
+                            <span class="hint">Per mille on net wealth, varies by canton</span>
+                        </div>
+                    </div>
+                </details>
+
+                <details class="input-group" open>
+                    <summary><span class="icon">🏢</span> Renting</summary>
+                    <div class="input-group-content">
+                        <div class="field">
+                            <label for="monthlyRent">Monthly Rent</label>
+                            <div class="input-with-unit">
+                                <span class="unit">CHF</span>
+                                <input type="number" id="monthlyRent" value="2500" step="50" min="0">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label for="rentIncrease">Annual Rent Increase</label>
+                            <div class="input-with-unit">
+                                <input type="number" id="rentIncrease" value="1.5" step="0.1" min="0" max="10">
+                                <span class="unit">%</span>
+                            </div>
+                        </div>
+                    </div>
+                </details>
+
+                <details class="input-group" open>
+                    <summary><span class="icon">📈</span> Investment (Opportunity Cost)</summary>
+                    <div class="input-group-content">
+                        <div class="field">
+                            <label for="investmentReturn">Expected Annual Return</label>
+                            <div class="input-with-unit">
+                                <input type="number" id="investmentReturn" value="5" step="0.1" min="-10" max="20">
+                                <span class="unit">%</span>
+                            </div>
+                            <span class="hint">Gross total return on portfolio (e.g. global equity ETF)</span>
+                        </div>
+                        <div class="field">
+                            <label for="dividendYieldPct">Dividend Yield</label>
+                            <div class="input-with-unit">
+                                <input type="number" id="dividendYieldPct" value="2" step="0.1" min="0" max="10">
+                                <span class="unit">%</span>
+                            </div>
+                            <span class="hint">Taxed as income. Capital gains are tax-free in CH.</span>
+                        </div>
+                        <div class="computed" id="afterTaxReturnInfo"></div>
+                    </div>
+                </details>
+
+                <details class="input-group" open>
+                    <summary><span class="icon">⏱️</span> Simulation</summary>
+                    <div class="input-group-content">
+                        <div class="field">
+                            <label for="simulationYears">Time Horizon</label>
+                            <div class="range-field">
+                                <input type="range" id="simulationYears" value="30" min="5" max="50" step="1">
+                                <span class="range-value" id="simulationYearsValue">30 years</span>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label for="sellingCostsPct">Property Selling Costs</label>
+                            <div class="input-with-unit">
+                                <input type="number" id="sellingCostsPct" value="3" step="0.1" min="0" max="10">
+                                <span class="unit">%</span>
+                            </div>
+                            <span class="hint">Agent fees, Grundstückgewinnsteuer, etc.</span>
+                        </div>
+                    </div>
+                </details>
+            </aside>
+
+            <!-- Results Panel -->
+            <div class="results-panel">
+                <!-- Warnings -->
+                <div class="warnings" id="warnings"></div>
+
+                <!-- Summary Cards -->
+                <div class="summary-cards" id="summaryCards"></div>
+
+                <!-- Affordability Check -->
+                <div class="info-box" id="affordabilityBox"></div>
+
+                <!-- Charts -->
+                <div class="charts-grid">
+                    <div class="chart-card">
+                        <h3>Net Worth Over Time</h3>
+                        <p class="chart-desc">Buyer's property equity vs. renter's investment portfolio</p>
+                        <div class="chart-wrapper">
+                            <canvas id="netWorthChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="chart-card">
+                        <h3>Monthly Costs Over Time</h3>
+                        <p class="chart-desc">Total monthly cash outflows for each scenario</p>
+                        <div class="chart-wrapper">
+                            <canvas id="costChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="chart-card full-width">
+                        <h3>Buying Advantage Over Time</h3>
+                        <p class="chart-desc">Buyer equity minus renter portfolio — positive means buying is ahead</p>
+                        <div class="chart-wrapper">
+                            <canvas id="advantageChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Detailed Table -->
+                <div class="table-card">
+                    <h3>Year-by-Year Breakdown</h3>
+                    <div class="table-scroll">
+                        <table id="detailTable">
+                            <thead>
+                                <tr>
+                                    <th>Year</th>
+                                    <th>Property Value</th>
+                                    <th>Mortgage</th>
+                                    <th>Buyer Equity</th>
+                                    <th>Renter Portfolio</th>
+                                    <th>Buyer / mo</th>
+                                    <th>Rent / mo</th>
+                                    <th>Advantage</th>
+                                </tr>
+                            </thead>
+                            <tbody id="detailTableBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>This calculator provides estimates for educational purposes only. Tax rates, regulations, and market conditions vary by canton and over time. Consult a qualified financial advisor for personalized advice.</p>
+        </div>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>
