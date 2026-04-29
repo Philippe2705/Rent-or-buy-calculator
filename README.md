@@ -141,3 +141,4 @@ The year when `Buyer Equity ≥ Renter Portfolio` for the first time.
 ## Disclaimer
 
 This calculator provides estimates for **educational and illustrative purposes only**. Tax rates, cantonal regulations, mortgage conditions, and market assumptions vary significantly and change over time. The model makes simplifying assumptions and does not constitute financial or legal advice. Always consult a qualified financial advisor, tax specialist, and notary before making real estate decisions in Switzerland.
+
