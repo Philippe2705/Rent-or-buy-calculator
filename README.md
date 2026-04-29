@@ -80,7 +80,7 @@ Most generic online calculators ignore these Swiss-specific rules entirely. This
 ```
 Buyer Equity = Property Value − Remaining Mortgage Balance
 ```
-Annual costs charged to the buyer: mortgage interest, amortization (cash outflow), maintenance, insurance, and net tax impact of Eigenmietwert minus deductions.
+Annual costs charged to the buyer: mortgage interest, amortization (cash outflow), maintenance, insurance, and net tax impact of Eigenmietwert (if applicable) minus deductions.
 
 ### Renter's portfolio
 The renter invests the **entire upfront amount** (down payment + notary costs) on day one. Each month, the **cash flow difference** between the buyer's total outflows and the renter's total outflows is added to (or subtracted from) the portfolio, which compounds at the after-tax investment return.
