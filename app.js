@@ -26,7 +26,7 @@
         amortizationYears: 15,
         maintenancePct: 1,
         insurancePct: 0.05,
-        eigenmietwertPct: 3.5,
+
         marginalTaxRate: 25,
         wealthTaxRate: 3,
         monthlyRent: 2500,
@@ -106,9 +106,9 @@
                     : 0;
             const maint = propertyValue * (p.maintenancePct / 100);
             const insur = propertyValue * (p.insurancePct / 100);
-            const eigenmietwert = propertyValue * (p.eigenmietwertPct / 100);
+            const eigenmietwert = 0; // Removed: voted to be abolished from 2029
 
-            // Net tax: positive → buyer pays more tax, negative → tax benefit
+            // Net tax: mortgage interest and maintenance remain deductible
             const netTax =
                 (eigenmietwert - interest - maint) * (p.marginalTaxRate / 100);
 

@@ -544,7 +544,6 @@ tbody tr.breakeven-row {
     font-weight: 600;
 }
 
-/* Footer */
 footer {
     background: var(--white);
     border-top: 1px solid var(--border);
@@ -552,10 +551,37 @@ footer {
     margin-top: 24px;
 }
 
+.footer-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
 footer p {
     font-size: 0.75rem;
     color: var(--text-secondary);
-    text-align: center;
+}
+
+.github-link {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--text);
+    text-decoration: none;
+    white-space: nowrap;
+    padding: 6px 12px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    transition: var(--transition);
+}
+
+.github-link:hover {
+    border-color: var(--text);
+    background: var(--bg);
 }
 
 /* Responsive */

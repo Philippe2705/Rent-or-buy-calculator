@@ -2,6 +2,9 @@
 
 A fully client-side web application that compares the long-term financial outcome of **renting** versus **buying** property in Switzerland. No server, no sign-up — just open `index.html` in your browser.
 
+🌐 **Live demo:** [rent-or-buy-calculator.philippemaquin2705.workers.dev](https://rent-or-buy-calculator.philippemaquin2705.workers.dev/)
+&nbsp;&nbsp;|&nbsp;&nbsp; **Source:** [github.com/Philippe2705/Rent-or-buy-calculator](https://github.com/Philippe2705/Rent-or-buy-calculator)
+
 ![App Overview](documentation/app_overview.png)
 
 ---
@@ -37,11 +40,11 @@ Most generic online calculators ignore these Swiss-specific rules entirely. This
 - **Building insurance** cost
 
 ### 📋 Swiss Tax Engine
-- **Eigenmietwert** (imputed rental value) — taxable income even without rent received
 - **Mortgage interest deduction** from taxable income
 - **Maintenance deduction** from taxable income
 - Configurable **marginal tax rate** (federal + cantonal + municipal combined)
 - **Wealth tax** in per-mille (‰), applied to net property equity for the buyer and to the portfolio for the renter
+- ~~Eigenmietwert~~ **Note:** the Swiss parliament voted to abolish the *Eigenmietwert* (imputed rental value) system for primary residences, effective **2029**. This calculator no longer models it; mortgage interest and maintenance deductions are retained.
 
 ### 📈 Opportunity Cost (Investment)
 - Down payment and monthly cost differential invested in an **alternative portfolio**
@@ -80,7 +83,7 @@ Most generic online calculators ignore these Swiss-specific rules entirely. This
 ```
 Buyer Equity = Property Value − Remaining Mortgage Balance
 ```
-Annual costs charged to the buyer: mortgage interest, amortization (cash outflow), maintenance, insurance, and net tax impact of Eigenmietwert minus deductions.
+Annual costs charged to the buyer: mortgage interest, amortization (cash outflow), maintenance, insurance, and net tax impact of deductions (mortgage interest + maintenance).
 
 ### Renter's portfolio
 The renter invests the **entire upfront amount** (down payment + notary costs) on day one. Each month, the **cash flow difference** between the buyer's total outflows and the renter's total outflows is added to (or subtracted from) the portfolio, which compounds at the after-tax investment return.
@@ -118,7 +121,6 @@ The year when `Buyer Equity ≥ Renter Portfolio` for the first time.
 | Amortization period | 15 years | Legal maximum for 2nd tranche |
 | Maintenance | 1%/yr | Swiss rule of thumb |
 | Building insurance | 0.05%/yr | Typical building insurance premium |
-| Eigenmietwert | 3.5% | Typical cantonal imputed rate |
 | Marginal tax rate | 25% | Mid-range combined rate |
 | Wealth tax | 3‰ | Mid-range cantonal rate |
 | Monthly rent | CHF 2 500 | Equivalent property, urban CH |
